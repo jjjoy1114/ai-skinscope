@@ -1,6 +1,7 @@
 from typing import Optional
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi.concurrency import run_in_threadpool
 from sqlalchemy.orm import Session
 
 from app.models.database import get_db
@@ -46,7 +47,8 @@ async def analyze_skin(
         raise HTTPException(status_code=400, detail="빈 파일입니다.")
 
     try:
-        result = run_skin_analysis_agent(
+        result = await run_in_threadpool(
+            run_skin_analysis_agent,
             image_bytes,
             mime_type=file.content_type,
             latitude=latitude,

@@ -7,7 +7,7 @@ router = APIRouter(prefix="/uv-index", tags=["uv"])
 
 
 @router.get("", response_model=UVIndexResult)
-async def read_uv_index(latitude: float, longitude: float) -> UVIndexResult:
+def read_uv_index(latitude: float, longitude: float) -> UVIndexResult:
     result = get_uv_index(latitude, longitude)
     if result is None:
         # 키 미설정·조회 실패 시에도 500이 아닌 404로 응답해, 프론트가
