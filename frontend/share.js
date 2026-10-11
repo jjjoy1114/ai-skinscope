@@ -9,7 +9,7 @@ const LOCAL_HOSTNAME_PATTERN =
 
 const API_BASE = LOCAL_HOSTNAME_PATTERN.test(location.hostname)
   ? `${location.protocol}//${location.hostname}:8000`
-  : "https://ai-skinscope.onrender.com";
+  : "https://ai-skinscope-team.onrender.com";
 
 const FEATURE_LABELS = {
   pore: "모공",
