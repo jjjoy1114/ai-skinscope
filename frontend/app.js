@@ -71,12 +71,30 @@ function applyConsentGiven() {
   document.getElementById("cameraSwitchBtn").disabled = false;
 }
 
+function showConsentGuide() {
+  if (state.consentGiven) return;
+
+  const consentCard = document.getElementById("consentCard");
+  const message = document.getElementById("consentGuideMessage");
+  const returnBtn = document.getElementById("returnToConsentBtn");
+
+  consentCard.style.display = "block";
+  message.classList.remove("hidden");
+  returnBtn.classList.remove("hidden");
+}
+
 function initConsent() {
   const checkbox = document.getElementById("consentCheckbox");
   const shutterBtn = document.getElementById("shutterBtn");
   const fileTriggerBtn = document.getElementById("fileTriggerBtn");
   const cameraSwitchBtn = document.getElementById("cameraSwitchBtn");
-
+  document.getElementById("returnToConsentBtn").addEventListener("click", () => {
+    document.getElementById("consentCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+    document.getElementById("consentCheckbox").focus();
+  });
   // 이전에 이미 동의한 적이 있으면, 안내 카드를 다시 보여주지 않는다.
   if (localStorage.getItem(CONSENT_STORAGE_KEY) === "true") {
     applyConsentGiven();
@@ -86,8 +104,8 @@ function initConsent() {
 
   checkbox.addEventListener("change", () => {
     state.consentGiven = checkbox.checked;
-    shutterBtn.disabled = !state.consentGiven;
-    fileTriggerBtn.disabled = !state.consentGiven;
+    shutterBtn.disabled = false;
+    fileTriggerBtn.disabled = false;
     cameraSwitchBtn.disabled = !state.consentGiven;
 
     if (state.consentGiven) {
@@ -628,7 +646,9 @@ async function submitAnalysis() {
     state.returnScreen = "screen-scan";
     renderResult(result, thumbUrl);
   } catch (err) {
-    alert("분석 중 오류가 발생했습니다: " + err.message);
+    const errorMessage = document.getElementById("fileErrorMessage");
+    errorMessage.textContent = "사진을 분석하지 못했어요. JPG 또는 PNG 사진을 확인하고 다시 시도해 주세요.";
+    errorMessage.classList.remove("hidden");
     console.error(err);
   } finally {
     loadingOverlay.classList.remove("active");
@@ -1570,16 +1590,44 @@ function init() {
 
   document.getElementById("trendAnalysisBtn").addEventListener("click", runTrendAnalysis);
 
-  document.getElementById("shutterBtn").addEventListener("click", capturePhotoFromVideo);
-  document.getElementById("cameraSwitchBtn").addEventListener("click", switchCamera);
-  document.getElementById("fileTriggerBtn").addEventListener("click", () => {
-    document.getElementById("fileInput").click();
-  });
+document.getElementById("shutterBtn").addEventListener("click", () => {
+  if (!state.consentGiven) {
+    showConsentGuide();
+    return;
+  }
+  capturePhotoFromVideo();
+});
 
-  document.getElementById("fileInput").addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file) onPhotoCaptured(file);
-  });
+document.getElementById("cameraSwitchBtn").addEventListener("click", switchCamera);
+
+document.getElementById("fileTriggerBtn").addEventListener("click", () => {
+  if (!state.consentGiven) {
+    showConsentGuide();
+    return;
+  }
+  document.getElementById("fileInput").click();
+});
+
+document.getElementById("fileInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  const errorMessage = document.getElementById("fileErrorMessage");
+
+  if (!file) return;
+
+  errorMessage.textContent = "";
+  errorMessage.classList.add("hidden");
+
+  const allowedTypes = ["image/jpeg", "image/png"];
+
+  if (!allowedTypes.includes(file.type)) {
+    errorMessage.textContent = "사진 파일(JPG, PNG)만 올릴 수 있어요";
+    errorMessage.classList.remove("hidden");
+    e.target.value = "";
+    return;
+  }
+
+  onPhotoCaptured(file);
+});
 
   document.getElementById("analyzeBtn").addEventListener("click", submitAnalysis);
   document.getElementById("retakeBtn").addEventListener("click", resetCaptureUI);
