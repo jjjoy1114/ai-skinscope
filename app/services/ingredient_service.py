@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from pathlib import Path
 from typing import List, Optional
 from urllib.parse import quote
@@ -62,6 +63,22 @@ def _load_ingredient_concerns() -> dict:
 SEARCH_EXCLUDE_TERMS = ["강아지", "반려동물", "펫", "애견", "고양이"]
 
 
+# 원본 데이터의 효능 설명에 영어 문단이 섞여 있는 경우가 있어(#17),
+# 한글이 들어 있는 줄만 남긴다. 한글 설명이 아예 없으면 아래 대체 문구를 쓴다.
+EFFICACY_FALLBACK_KO = {
+    "PEPTIDES": "아미노산이 짧게 연결된 성분으로, 콜라겐·엘라스틴 생성을 도와 피부 탄력을 높이고 잔주름 완화에 도움을 줍니다.",
+}
+_HANGUL = re.compile("[가-힣]")
+
+
+def _clean_efficacy(inci_name: str, text: Optional[str]) -> Optional[str]:
+    lines = [line.strip() for line in (text or "").splitlines() if line.strip()]
+    korean = [line for line in lines if _HANGUL.search(line)]
+    if korean:
+        return " ".join(korean)
+    return EFFICACY_FALLBACK_KO.get(inci_name.upper()) or None
+
+
 def _build_search_url(name_ko: str) -> str:
     """실시간 커머스 연동 대신, 성분명으로 검색할 수 있는 링크를 대체 제공한다."""
     exclude = " ".join(f"-{term}" for term in SEARCH_EXCLUDE_TERMS)
@@ -95,7 +112,7 @@ def _build_concern_recommendation(concern_key: str) -> Optional[ConcernProductRe
             IngredientRecommendation(
                 inci_name=item.get("inci_name", ""),
                 name_ko=name_ko,
-                efficacy=item.get("efficacy") or None,
+                efficacy=_clean_efficacy(item.get("inci_name", ""), item.get("efficacy")),
                 search_url=_build_search_url(name_ko),
             )
         )

@@ -52,7 +52,7 @@ def save_record(db: Session, user_id: str, agent_result: AgentResult) -> SkinRec
 def get_history(db: Session, user_id: str, limit: int = 20) -> List[SkinRecord]:
     return (
         db.query(SkinRecord)
-        .filter(SkinRecord.user_id == user_id)
+        .filter(SkinRecord.user_id == user_id, SkinRecord.overall_score > 0)
         .order_by(SkinRecord.created_at.desc())
         .limit(limit)
         .all()
@@ -69,7 +69,7 @@ def get_history_series(db: Session, user_id: str, limit: int = 60) -> List[SkinR
     """시계열 분석용 — 오래된 순(과거→최신)으로 정렬해 반환한다."""
     return (
         db.query(SkinRecord)
-        .filter(SkinRecord.user_id == user_id)
+        .filter(SkinRecord.user_id == user_id, SkinRecord.overall_score > 0)
         .order_by(SkinRecord.created_at.asc())
         .limit(limit)
         .all()

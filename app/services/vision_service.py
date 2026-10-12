@@ -209,6 +209,8 @@ note에는 "사진 조명에 따라 오차가 있을 수 있는 참고용 결과
 하게 단정적인 표현(예: "무조건 이 색상만")은 피하라. image_quality_ok가
 false인 경우 personal_color는 채우지 마라(생략).
 
+모든 문장은 한국어 맞춤법에 맞게 작성하고, 응답 전에 오탈자가 없는지 점검하라.
+
 반드시 아래 JSON 스키마와 정확히 일치하는 JSON만 응답하라. 다른 텍스트를
 포함하지 마라.
 """
@@ -623,6 +625,29 @@ def _build_rag_evidence_text(similar_cases: List[Tuple[str, float]]) -> str:
 {summary}"""
 
 
+# Gemini가 자주 내는 오탈자 보정표 (#18). 새 오탈자가 보고되면 여기에 추가한다.
+TYPO_FIXES = {
+    "유전하세요": "유지하세요",
+}
+
+
+def _fix_typos(text: Optional[str]) -> Optional[str]:
+    if not text:
+        return text
+    for wrong, right in TYPO_FIXES.items():
+        text = text.replace(wrong, right)
+    return text
+
+
+def _fix_result_typos(result: SkinAnalysisResult) -> SkinAnalysisResult:
+    return result.model_copy(update={
+        "ai_summary": _fix_typos(result.ai_summary),
+        "ai_focus": _fix_typos(result.ai_focus),
+        "ai_detail": _fix_typos(result.ai_detail),
+        "care_tips": [_fix_typos(t) for t in result.care_tips],
+    })
+
+
 def _build_client() -> genai.Client:
     return genai.Client(api_key=settings.gemini_api_key)
 
@@ -766,7 +791,7 @@ def analyze_skin_image(
         try:
             raw_text = _call_gemini(client, model, primary_image, texture_image, system_prompt)
             data = json.loads(raw_text)
-            return SkinAnalysisResult.model_validate(data)
+            return _fix_result_typos(SkinAnalysisResult.model_validate(data))
         except Exception as exc:  # noqa: BLE001 - 모델별 예외를 모두 잡아 fallback 처리
             logger.warning("Gemini 모델 %s 호출 실패: %s", model, exc)
             last_error = exc
