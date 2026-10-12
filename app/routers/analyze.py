@@ -60,6 +60,10 @@ async def analyze_skin(
         # Gemini 모든 모델 호출 실패(쿼터 초과 등)
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
+    # 사진 인식 실패(image_quality_ok=false)는 0점 기록으로 이력에 남기지 않는다 (#16)
+    if not result.vision.image_quality_ok:
+        return result
+
     record = save_record(db, user_id=user_id, agent_result=result)
     return result.model_copy(update={"record_id": record.id})
 
