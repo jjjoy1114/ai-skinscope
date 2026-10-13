@@ -51,6 +51,12 @@
         <input type="checkbox" id="consentCheckbox" />
         <span>위 내용에 동의하고 촬영을 시작합니다</span>
       </label>
+      <p id="consentGuideMessage" class="capture-condition-hint hidden" role="alert">
+        동의해 주셔야 분석할 수 있어요
+      </p>
+      <button type="button" id="returnToConsentBtn" class="btn-secondary hidden">
+        동의 화면으로 돌아가기
+      </button>
     </div>
 
     <div class="profile-input-card" id="profileInputCard">
@@ -102,11 +108,11 @@
 
     <p class="capture-condition-hint hidden" id="captureConditionHint"></p>
     <div class="capture-controls">
-      <button class="shutter-btn" id="shutterBtn" disabled aria-label="촬영"></button>
+      <button class="shutter-btn" id="shutterBtn"  aria-label="촬영"></button>
     </div>
-    <button class="file-btn" id="fileTriggerBtn" disabled>갤러리에서 사진 선택</button>
-    <input type="file" id="fileInput" accept="image/*" class="hidden" aria-label="갤러리에서 사진 선택" />
-
+        <button class="file-btn" id="fileTriggerBtn" >갤러리에서 사진 선택</button>
+    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,image/jpeg,image/png" class="hidden" aria-label="갤러리에서 사진 선택" />
+    <p id="fileErrorMessage" class="capture-condition-hint hidden" role="alert" aria-live="assertive"></p>
     <button class="btn-primary hidden" id="analyzeBtn">이 사진으로 분석하기</button>
     <button class="btn-secondary hidden" id="retakeBtn">다시 촬영</button>
   </section>
