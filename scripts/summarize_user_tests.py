@@ -32,18 +32,11 @@ lines = [
     f"- 만족도 응답: {len(ratings)}건, 평균 **{sum(ratings) / len(ratings):.1f} / 5**",
     f"- 서술형 피드백: {len(comments)}건",
     "",
-    "## 차수별 집계 (1차: 사전 프로토타입, 2차: 2026-10 이후 팀 배포본)",
+    "## 데이터 출처",
     "",
-    "| 차수 | 건수 | 참여자 | 만족도 응답 | 만족도 평균 |",
-    "| --- | --- | --- | --- | --- |",
+    "- 사전 프로토타입 운영 DB의 `skin_records`를 `scripts/export_feedback.py`로 추출한 `docs/user_test_results.csv` 기준입니다.",
+    "- 팀 저장소 배포본(2026-10)은 무료 DB가 만료되어 운영 기록이 남아 있지 않아 이 집계에 포함하지 않았습니다. 배포 후 점검에서 등록한 이슈는 `docs/user_test_round2_issues.csv`에 있습니다.",
 ]
-for label, part in (
-    ("1차", [r for r in rows if r["created_at"][:7] < "2026-10"]),
-    ("2차", [r for r in rows if r["created_at"][:7] >= "2026-10"]),
-):
-    rt = [int(r["satisfaction_rating"]) for r in part if r["satisfaction_rating"]]
-    avg = f"{sum(rt) / len(rt):.1f}" if rt else "-"
-    lines.append(f"| {label} | {len(part)} | {len({r['user_id'] for r in part})} | {len(rt)} | {avg} |")
 lines += [
     "",
     "## 만족도 분포",
