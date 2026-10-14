@@ -2,5 +2,5 @@
 16,버그,backend,분석 실패 시도가 0점 기록으로 이력에 저장됨,해결,2026-10-11,2026-10-12,https://github.com/jjjoy1114/ai-skinscope/issues/16
 17,버그,backend,추천 성분 설명 일부가 영어로 표시됨,해결,2026-10-11,2026-10-12,https://github.com/jjjoy1114/ai-skinscope/issues/17
 18,개선,backend,"AI 스킨케어 팁 문장 오타 (""유전하세요"")",해결,2026-10-11,2026-10-12,https://github.com/jjjoy1114/ai-skinscope/issues/18
-19,개선,frontend,잘못된 파일 업로드 시 기술 용어가 담긴 알림창이 뜸,진행 중,2026-10-11,,https://github.com/jjjoy1114/ai-skinscope/issues/19
-20,개선,frontend,동의하지 않고 진행하면 분석이 안 되는 이유를 알기 어려움,진행 중,2026-10-11,,https://github.com/jjjoy1114/ai-skinscope/issues/20
+19,개선,frontend,잘못된 파일 업로드 시 기술 용어가 담긴 알림창이 뜸,해결,2026-10-11,2026-10-13,https://github.com/jjjoy1114/ai-skinscope/issues/19
+20,개선,frontend,동의하지 않고 진행하면 분석이 안 되는 이유를 알기 어려움,해결,2026-10-11,2026-10-13,https://github.com/jjjoy1114/ai-skinscope/issues/20
