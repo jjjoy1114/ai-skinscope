@@ -126,8 +126,7 @@ python scripts/serve_https.py
 | --- | --- | --- | --- |
 | 오주연 | 팀장, 데이터·QA | 팀 저장소를 만들고 턴 방식(브랜치 → PR → 리뷰 → Merge)으로 진행을 이끌었습니다. 기능 요구 명세서와 AI Hub 데이터 분석 문서를 쓰고, 배포본을 점검해 이슈 5건(#16~#20)을 등록했습니다. 팀원 PR을 리뷰·Merge하고 결과 보고서와 README를 정리했으며, 1차 평가 후 사용자 피드백 기록과 제출물 보완을 맡았습니다. | [명세서](docs/기능요구명세서.md) · [데이터 분석](docs/AI_HUB_데이터분석.md) · [결과 보고서](docs/Result.md) · [피드백 기록](docs/test/user_feedback.md) · [PR #11](https://github.com/jjjoy1114/ai-skinscope/pull/11) · [PR #26](https://github.com/jjjoy1114/ai-skinscope/pull/26) · [PR #38](https://github.com/jjjoy1114/ai-skinscope/pull/38) |
 | 서경환 | Backend/AI | 서비스 기획서를 쓰고, Gemini Vision 분석·RAG 3종·Agent·이력 기반 피드백·챗봇으로 이어지는 백엔드와 AI 파이프라인을 구현했습니다. 프로토타입 단계에서 AI Hub 원본 데이터를 추출하고 Render에 백엔드를 배포했으며, 배포 후 백엔드 이슈 3건(#16~#18)을 수정하고 기술적용 매뉴얼을 정리했습니다. 1차 평가 후에는 실사용자 테스트 데이터의 팀원 기록 제외·가명 처리와 명세서 AI 활용 코드 위치·구현 현황 표를 맡았습니다. | [기획서](docs/Service기획서.md) · [기술적용 매뉴얼](docs/AI_Skin_Scope_기술적용_매뉴얼.md) · [PR #13](https://github.com/jjjoy1114/ai-skinscope/pull/13) · [PR #22](https://github.com/jjjoy1114/ai-skinscope/pull/22) · [PR #37](https://github.com/jjjoy1114/ai-skinscope/pull/37) |
-| 조민경 | Frontend | (조민경 작성) | |
-
+| 조민경 | Frontend | 프론트엔드 화면과 PWA 기능의 구현 및 검증 작업에 참여했습니다. 촬영 전 동의와 AI 생성 고지 등 사용자 화면을 점검하고, 백엔드 주소 변경에 대응했으며 배포 후 프론트엔드 이슈 2건(#19, #20)을 수정했습니다. 브라우저와 스마트폰 실기기에서 주요 화면을 검증하고 테스트 증빙을 정리했습니다. 1차 평가 후에는 기능요구명세서의 프론트엔드 구현 현황을 검토하고, 이력 조회(FR-11), 근거 설명(FR-17), 자동 촬영(FR-18)의 실제 검증 결과를 반영했습니다. |[PR #14](https://github.com/jjjoy1114/ai-skinscope/pull/14) · [PR #15](https://github.com/jjjoy1114/ai-skinscope/pull/15) · [PR #24](https://github.com/jjjoy1114/ai-skinscope/pull/24) · [PR #39](https://github.com/jjjoy1114/ai-skinscope/pull/39)|
 > 커밋 수(Merge 커밋 제외, 최종): 오주연 __ · 서경환 __ · 조민경 __ (`git shortlog -sn --no-merges team-start..main`)
 
 턴 방식(한 번에 한 명 작업 → PR → 리뷰 → Merge)으로 진행했습니다. 턴별 작업 내용과 PR 기록은 [`docs/Result.md`](docs/Result.md) 6절에 있습니다.
