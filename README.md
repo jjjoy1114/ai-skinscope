@@ -120,13 +120,15 @@ python scripts/serve_https.py
 
 `app/data/*.json`은 사전에 계산된 참고 인덱스입니다. AI Hub 원본 데이터를 다시 받아 처음부터 빌드하려면 `scripts/build_*.py` 스크립트들을 참고하세요(원본 데이터셋 접근 방법은 `docs/Service기획서.md` 4장 참고).
 
-## 7. 팀 구성
+## 7. 팀 구성과 기여
 
-| 이름 | 역할 | 담당 업무 |
-| --- | --- | --- |
-| 오주연 | 팀장, 데이터·QA | 저장소 개설·운영, 기능 요구 명세서, AI Hub 데이터 분석·추출 정리와 검증, 배포 점검과 이슈 등록(#16~#20), PR 리뷰·Merge, 결과 보고서, 프론트엔드 배포(Vercel), README |
-| 서경환 | Backend/AI | 서비스 기획서, 백엔드·AI 파이프라인(비전 분석·RAG·Agent·Memory·챗봇), 프로토타입 단계의 AI Hub 원본 데이터 추출, 백엔드 배포(Render), 백엔드 이슈 수정(#16~#18), 팀장 PR 리뷰 |
-| 조민경 | Frontend | PWA 화면·설치 경험, 동의·AI 생성 고지, 프론트엔드 이슈 수정(#19, #20)과 브라우저 QA |
+| 이름 | 역할 | 본인 기여 요약 (본인 작성) | 대표 커밋·PR·문서 |
+| --- | --- | --- | --- |
+| 오주연 | 팀장, 데이터·QA | 팀 저장소를 만들고 턴 방식(브랜치 → PR → 리뷰 → Merge)으로 진행을 이끌었습니다. 기능 요구 명세서와 AI Hub 데이터 분석 문서를 쓰고, 배포본을 점검해 이슈 5건(#16~#20)을 등록했습니다. 팀원 PR을 리뷰·Merge하고 결과 보고서와 README를 정리했으며, 1차 평가 후 사용자 피드백 기록과 제출물 보완을 맡았습니다. | [명세서](docs/기능요구명세서.md) · [데이터 분석](docs/AI_HUB_데이터분석.md) · [결과 보고서](docs/Result.md) · [피드백 기록](docs/test/user_feedback.md) · [PR #11](https://github.com/jjjoy1114/ai-skinscope/pull/11) · [PR #26](https://github.com/jjjoy1114/ai-skinscope/pull/26) · [PR #38](https://github.com/jjjoy1114/ai-skinscope/pull/38) |
+| 서경환 | Backend/AI | (서경환 작성) | |
+| 조민경 | Frontend | (조민경 작성) | |
+
+> 커밋 수(Merge 커밋 제외, 최종): 오주연 __ · 서경환 __ · 조민경 __ (`git shortlog -sn --no-merges team-start..main`)
 
 턴 방식(한 번에 한 명 작업 → PR → 리뷰 → Merge)으로 진행했습니다. 턴별 작업 내용과 PR 기록은 [`docs/Result.md`](docs/Result.md) 6절에 있습니다.
 
