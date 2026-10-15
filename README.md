@@ -130,6 +130,8 @@ python scripts/serve_https.py
 
 턴 방식(한 번에 한 명 작업 → PR → 리뷰 → Merge)으로 진행했습니다. 턴별 작업 내용과 PR 기록은 [`docs/Result.md`](docs/Result.md) 6절에 있습니다.
 
+브랜치 전략(GitHub Flow: `main` 보호, 작업 브랜치 → PR → 리뷰 → merge commit, 태그로 제출본 표시), 코드 컨벤션(black·ruff, 설정은 [`pyproject.toml`](pyproject.toml)), 리팩토링 가이드는 [`docs/CODE_CONVENTION.md`](docs/CODE_CONVENTION.md)에 정리했습니다.
+
 ## 8. AI 윤리 및 개인정보
 
 - 모든 분석 결과 화면에 "AI 참고용 스크리닝이며 의료 진단이 아님"을 상시 고지합니다.
@@ -151,3 +153,5 @@ python scripts/serve_https.py
 - 배포: <https://ai-skinscope-team.vercel.app>
 - 결과 보고서: [`docs/Result.md`](docs/Result.md)
 - 기술적용 매뉴얼: [`docs/AI_Skin_Scope_기술적용_매뉴얼.md`](docs/AI_Skin_Scope_기술적용_매뉴얼.md)
+- 코드 컨벤션·브랜치 전략·리팩토링 가이드: [`docs/CODE_CONVENTION.md`](docs/CODE_CONVENTION.md)
+- 운영 가이드(서버 깨우기 계획·정기 점검·DB 백업·장애 대응): [`docs/OPERATIONS.md`](docs/OPERATIONS.md)
