@@ -1,0 +1,23 @@
+# AI-SkinScope 코드 스타일·정적 분석 설정
+# 규칙 설명: docs/CODE_CONVENTION.md
+# 적용 범위: 새로 작성하거나 수정하는 Python 코드부터 적용합니다(기존 코드는 기능 변경 없이 점진적으로 정리).
+
+[tool.black]
+line-length = 120
+target-version = ["py310"]
+extend-exclude = "app/data"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["app/data", "frontend"]
+
+[tool.ruff.lint]
+# E/W: 기본 스타일, F: 사용하지 않는 import·변수 등 오류, I: import 정렬, B: 흔한 버그 패턴, UP: 최신 문법 권장
+select = ["E", "W", "F", "I", "B", "UP"]
+# E501(줄 길이)은 black이 맡고, 한국어 주석·문자열이 많은 점을 고려해 제외
+# B008은 FastAPI의 Depends()/File() 기본값 패턴을 오류로 보므로 제외
+ignore = ["E501", "B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
