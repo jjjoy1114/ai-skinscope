@@ -120,7 +120,7 @@ ai-skinscope/
 ├── docs/                                 # 기획·스펙·데이터·테스트 기록
 │   ├── Service기획서.md, 기능요구명세서.md, AI_HUB_데이터분석.md, Result.md
 │   ├── AI_Skin_Scope_기술적용_매뉴얼.md   # 본 문서
-│   ├── user_test_results.csv             # 실사용자 테스트 원본 데이터(177건)
+│   ├── user_test_results.csv             # 실사용자 테스트 데이터(154건, 가명 T1~T40)
 │   ├── user_test_round2_issues.csv       # 팀 배포 후 발견 이슈 5건(#16~#20)과 조치 결과
 │   ├── test/                             # 배포 점검 로그, 테스트 통계 요약
 │   └── screenshots/                      # 보고서용 화면(01~15, 10번 제외) + process/ 진행 화면
@@ -248,7 +248,7 @@ AI Hub 원본 데이터셋(개발자 PC의 로컬 `D:\AI_DB\` 경로)을 읽어 
 
 ## 6. 문서·기획 자료
 
-`docs/` 폴더에는 서비스 기획서, 기능 요구 명세서, AI Hub 데이터 분석, 최종 결과 보고서(Result.md), 본 기술적용 매뉴얼이 있습니다. 실사용자 테스트 원본(`user_test_results.csv`, 177건·41명)과 팀 배포 후 발견 이슈 기록(`user_test_round2_issues.csv`), 배포 점검 로그(`test/`), 보고서용·진행 과정 캡처(`screenshots/`)도 함께 보관합니다.
+`docs/` 폴더에는 서비스 기획서, 기능 요구 명세서, AI Hub 데이터 분석, 최종 결과 보고서(Result.md), 본 기술적용 매뉴얼이 있습니다. 실사용자 테스트 원본(`user_test_results.csv`, 154건·40명, 가명)과 팀 배포 후 발견 이슈 기록(`user_test_round2_issues.csv`), 배포 점검 로그(`test/`), 보고서용·진행 과정 캡처(`screenshots/`)도 함께 보관합니다.
 
 > 본문에서 인용하는 기능별 상세 설계 스펙(`개선 과정 작업지시서/` — 피부나이 신뢰도, 점수 재현성 테스트 로그 등)은 2026년 8~9월 사전 구성 팀의 프로토타입 개선 과정에서 작성된 자료입니다.
 
