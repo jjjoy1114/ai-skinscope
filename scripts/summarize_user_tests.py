@@ -12,13 +12,13 @@ rows = [
     for r in csv.DictReader(SRC.open(encoding="utf-8-sig"))
     if (r.get("created_at") or "").strip()
 ]
-users = {r["user_id"] for r in rows}
+users = {r["tester"] for r in rows}
 scores = [int(r["overall_score"]) for r in rows if r["overall_score"]]
 valid = [s for s in scores if s > 0]
 ratings = [int(r["satisfaction_rating"]) for r in rows if r["satisfaction_rating"]]
 comments = [r for r in rows if r["feedback_comment"].strip()]
 derm = sum(r["needs_dermatologist"] == "True" for r in rows)
-fb_users = {r["user_id"] for r in rows if r["satisfaction_rating"] or r["feedback_comment"].strip()}
+fb_users = {r["tester"] for r in rows if r["satisfaction_rating"] or r["feedback_comment"].strip()}
 dates = sorted(r["created_at"][:10] for r in rows)
 
 lines = [
@@ -35,7 +35,8 @@ lines = [
     "## 데이터 출처",
     "",
     "- 사전 프로토타입 운영 DB의 `skin_records`를 `scripts/export_feedback.py`로 추출한 `docs/user_test_results.csv` 기준입니다.",
-    "- 팀 저장소 배포본(2026-10)은 무료 DB가 만료되어 운영 기록이 남아 있지 않아 이 집계에 포함하지 않았습니다. 배포 후 점검에서 등록한 이슈는 `docs/user_test_round2_issues.csv`에 있습니다.",
+    "- 팀원 테스트 기록은 제외하고, 테스터는 가명(T1~)으로 표기했습니다 (`scripts/anonymize_test_results.py`).",
+    "- 팀 저장소 배포본(2026-10)은 배포 초기 DB가 연결되지 않아 운영 기록이 남지 않았으므로 이 집계에 포함하지 않았습니다. 배포 후 점검에서 등록한 이슈는 `docs/user_test_round2_issues.csv`에 있습니다.",
 ]
 lines += [
     "",
@@ -46,10 +47,10 @@ lines += [
 ]
 dist = Counter(ratings)
 lines += [f"| {k} | {dist.get(k, 0)} |" for k in (5, 4, 3, 2, 1)]
-lines += ["", "## 서술형 피드백 원문", "", "| 날짜 | 사용자 | 의견 |", "| --- | --- | --- |"]
+lines += ["", "## 서술형 피드백 원문", "", "| 날짜 | 테스터(가명) | 의견 |", "| --- | --- | --- |"]
 for r in comments:
     text = r["feedback_comment"].replace("\n", " ").replace("|", "/")
-    lines.append(f"| {r['created_at'][:10]} | {r['user_id']} | {text} |")
+    lines.append(f"| {r['created_at'][:10]} | {r['tester']} | {text} |")
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
