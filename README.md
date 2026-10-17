@@ -6,6 +6,34 @@ AI 피부 상태 스크리닝 & 코칭 서비스 — 스마트폰 카메라로 �
 
 🔗 배포 주소: **<https://ai-skinscope-team.vercel.app>**
 
+## 📌 제출물 한눈에 보기
+
+| # | 제출물 | 위치 |
+| --- | --- | --- |
+| 1 | 서비스 기획서 | [docs/Service기획서.md](docs/Service기획서.md) |
+| 2 | 기능 요구 명세서 (아키텍처·AI 활용 명세·구현 현황 표) | [docs/기능요구명세서.md](docs/기능요구명세서.md) |
+| 3 | README (개요·팀원 역할·기술 스택·실행 방법·결과) | 이 문서 |
+| 4 | 배포 서비스와 평가자 접속 방법 | <https://ai-skinscope-team.vercel.app> · [접속 방법](#평가자-접속-방법) |
+| 5 | 사용자 피드백 기록 | [docs/test/user_feedback.md](docs/test/user_feedback.md) |
+| 6 | 발표 자료 (PDF) | [docs/AI-SkinScope_발표자료.pdf](docs/AI-SkinScope_발표자료.pdf) |
+
+진행 기록: [docs/Result.md](docs/Result.md) 6절(턴별 PR·리뷰) · [docs/screenshots/process/](docs/screenshots/process/)
+
+### 평가자 접속 방법
+
+- 주소: <https://ai-skinscope-team.vercel.app> (휴대폰·PC 브라우저)
+- **로그인·테스트 계정 없음.** 첫 화면 상단의 익명 ID가 자동 생성됩니다.
+- 무료 서버라 **첫 접속 시 약 50초** 기동 시간이 있습니다. 이후 분석은 약 18초 걸립니다.
+- 기능별 확인 방법: [기능 요구 명세서 10장 구현 현황](docs/기능요구명세서.md)
+
+## 결과
+
+- AI 기술 요소: 멀티모달 AI, RAG(3종), Long-term Memory 적용 (AI Agent는 규칙 결합형, 경계 사례)
+- Must 기능 10개 구현 완료, 기능별 확인 방법·기대 결과 정리 ([구현 현황](docs/기능요구명세서.md) 10장)
+- 실사용자 테스트: 참여자 40명(팀원 제외), 분석 154건, 만족도 4.3 / 5 → [피드백 기록](docs/test/user_feedback.md)
+- 배포 후 이슈 5건(#16~#20) 모두 해결
+- 결과 보고서: [docs/Result.md](docs/Result.md)
+
 경남 코디세이(Gyeongnam Codyssey) AI 네이티브 과정 Final Project(팀미션 3-3) 산출물입니다. 2026년 8~9월에 사전 구성한 팀이 프로토타입을 만들고 사용자 테스트를 수행하며 개선 과정을 준비했고, 그 결과를 바탕으로 10월에 3명이 팀 저장소에서 역할을 나눠 다시 구성했습니다.
 
 ---
@@ -38,13 +66,13 @@ AI 피부 상태 스크리닝 & 코칭 서비스 — 스마트폰 카메라로 �
 
 ## 3. AI 활용 방식
 
-Final Project 요구 기술 요소(5종 중 2개 이상) 중 4개를 충족합니다.
+Final Project 요구 기술 요소(5종 중 2개 이상) 가운데 멀티모달 AI, RAG, Long-term Memory 3개를 충족합니다. AI Agent는 AI 판단과 점수 규칙을 결합한 방식이라 완전 자율형이 아닌 경계 사례로 표기합니다.
 
 | 기술 요소 | 적용 내용 |
 | --- | --- |
 | 멀티모달 AI | Gemini Vision으로 얼굴 사진에서 구조화된 피부 특징을 직접 추출 |
 | RAG (Retrieval-Augmented Generation) | ① 질환 유사사례 임베딩 검색, ② 인구 통계 실측 프로필 검색 — 두 인덱스를 top-5 코사인 유사도로 조회해 프롬프트 근거로 주입. ③ 피부지식 챗봇은 별도 지식베이스(FAQ+성분 매핑)를 RAG로 검색해 답변 |
-| AI Agent | 분석 결과를 바탕으로 점수 산출 → 전문의 상담 필요 여부 판단 → 필요 시 카카오맵 병원 검색 "도구"를 자율 호출 |
+| AI Agent | 분석 결과를 바탕으로 점수 산출 → 전문의 상담 필요 여부 판단 → 필요 시 카카오맵 병원 검색 도구 호출 (AI 판단 + 40점 이하 규칙 결합형, 경계 사례) |
 | Long-term Memory | 사용자별 촬영 이력을 DB에 누적해 변화 추적과 동년배 비교에 활용 |
 
 ## 4. 기술 스택
@@ -127,7 +155,7 @@ python scripts/serve_https.py
 | 오주연 | 팀장, 데이터·QA | 팀 저장소를 만들고 턴 방식(브랜치 → PR → 리뷰 → Merge)으로 진행을 이끌었습니다. 기능 요구 명세서와 AI Hub 데이터 분석 문서를 쓰고, 배포본을 점검해 이슈 5건(#16~#20)을 등록했습니다. 팀원 PR을 리뷰·Merge하고 결과 보고서와 README를 정리했으며, 1차 평가 후 사용자 피드백 기록과 제출물 보완을 맡았습니다. | [명세서](docs/기능요구명세서.md) · [데이터 분석](docs/AI_HUB_데이터분석.md) · [결과 보고서](docs/Result.md) · [피드백 기록](docs/test/user_feedback.md) · [PR #11](https://github.com/jjjoy1114/ai-skinscope/pull/11) · [PR #26](https://github.com/jjjoy1114/ai-skinscope/pull/26) · [PR #38](https://github.com/jjjoy1114/ai-skinscope/pull/38) |
 | 서경환 | Backend/AI | 서비스 기획서를 쓰고, Gemini Vision 분석·RAG 3종·Agent·이력 기반 피드백·챗봇으로 이어지는 백엔드와 AI 파이프라인을 구현했습니다. 프로토타입 단계에서 AI Hub 원본 데이터를 추출하고 Render에 백엔드를 배포했으며, 배포 후 백엔드 이슈 3건(#16~#18)을 수정하고 기술적용 매뉴얼을 정리했습니다. 1차 평가 후에는 실사용자 테스트 데이터의 팀원 기록 제외·가명 처리와 명세서 AI 활용 코드 위치·구현 현황 표를 맡았습니다. | [기획서](docs/Service기획서.md) · [기술적용 매뉴얼](docs/AI_Skin_Scope_기술적용_매뉴얼.md) · [PR #13](https://github.com/jjjoy1114/ai-skinscope/pull/13) · [PR #22](https://github.com/jjjoy1114/ai-skinscope/pull/22) · [PR #37](https://github.com/jjjoy1114/ai-skinscope/pull/37) |
 | 조민경 | Frontend | 프론트엔드 화면과 PWA 기능의 구현 및 검증 작업에 참여했습니다. 촬영 전 동의와 AI 생성 고지 등 사용자 화면을 점검하고, 백엔드 주소 변경에 대응했으며 배포 후 프론트엔드 이슈 2건(#19, #20)을 수정했습니다. 브라우저와 스마트폰 실기기에서 주요 화면을 검증하고 테스트 증빙을 정리했습니다. 1차 평가 후에는 기능요구명세서의 프론트엔드 구현 현황을 검토하고, 이력 조회(FR-11), 근거 설명(FR-17), 자동 촬영(FR-18)의 실제 검증 결과를 반영했습니다. |[PR #14](https://github.com/jjjoy1114/ai-skinscope/pull/14) · [PR #15](https://github.com/jjjoy1114/ai-skinscope/pull/15) · [PR #24](https://github.com/jjjoy1114/ai-skinscope/pull/24) · [PR #39](https://github.com/jjjoy1114/ai-skinscope/pull/39)|
-> 커밋 수(Merge 커밋 제외, 최종): 오주연 __ · 서경환 __ · 조민경 __ (`git shortlog -sn --no-merges team-start..main`)
+> 커밋 수(Merge 커밋 제외, 최종): 오주연 23 · 서경환 24 · 조민경 10 (`git shortlog -sn --no-merges team-start..main`)
 
 턴 방식(한 번에 한 명 작업 → PR → 리뷰 → Merge)으로 진행했습니다. 턴별 작업 내용과 PR 기록은 [`docs/Result.md`](docs/Result.md) 6절에 있습니다.
 
@@ -153,6 +181,8 @@ python scripts/serve_https.py
 
 - 배포: <https://ai-skinscope-team.vercel.app>
 - 결과 보고서: [`docs/Result.md`](docs/Result.md)
+- 발표 자료(PDF): [`docs/AI-SkinScope_발표자료.pdf`](docs/AI-SkinScope_발표자료.pdf)
+- 사용자 피드백 기록: [`docs/test/user_feedback.md`](docs/test/user_feedback.md)
 - 기술적용 매뉴얼: [`docs/AI_Skin_Scope_기술적용_매뉴얼.md`](docs/AI_Skin_Scope_기술적용_매뉴얼.md)
 - 코드 컨벤션·브랜치 전략·리팩토링 가이드: [`docs/CODE_CONVENTION.md`](docs/CODE_CONVENTION.md)
 - 운영 가이드(서버 깨우기 계획·정기 점검·DB 백업·장애 대응): [`docs/OPERATIONS.md`](docs/OPERATIONS.md)
