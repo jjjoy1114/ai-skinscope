@@ -31,7 +31,7 @@
 | FR-02 | 촬영 전 동의 | ✅ | ➖ | ➖ | ✅ (V3) | **충족** |
 | FR-03 | AI 이미지 분석 | ✅ | ✅ | ✅ | ✅ (V2) | **충족** |
 | FR-04 | 피부 건강 점수 | ✅ | ✅ | ✅ | ✅ (V2) | **충족** |
-| FR-05 | 유사 증상 패턴 안내 | ✅ | ❌ | ❌ | ✅ (V2, V6) | **충족** (2·3회 처리는 팀 결정) |
+| FR-05 | 유사 증상 패턴 안내 | ✅ | ✅ | ✅ | ✅ (V2, V6) | **충족** |
 | FR-06 | 전문의 상담 권장·병원 검색 | ⛔ | ⛔ | ⛔ | ⛔ (V2) · ✅ (V5, V6) | **충족** |
 | FR-07 | 관리 코칭 메시지 | ✅ | ✅ | ✅ | ✅ (V2, V6) | **충족** |
 | FR-08 | 이력 저장 | ✅ | ✅ | ✅ | - | **충족** |
@@ -42,7 +42,7 @@
 
 **충족 10개** (첫 제출 때 확인 필요·미충족·추가 검증 필요였던 FR-05·06·10은 PR #43 리뷰 후 V4~V6 재검증으로 충족)
 
-FR-05의 2·3회 "두드러진 패턴 없음" 안내는 이슈 #35 기준(X 2회)에 해당해 단톡방에 공유함. 이 안내를 명세 기대 결과에 추가할지는 팀 결정 사항으로 남김.
+턴 16 검증 중 명세 보완: FR-05 2·3회의 "두드러진 패턴 없음" 안내를 단톡방에 공유했고, 팀 결정에 따라 `기능요구명세서.md` 10장 FR-05 기대 결과에 추가함. 이에 따라 2·3회도 충족으로 판정함.
 
 ## 3. 항목별 상세
 
@@ -75,15 +75,14 @@ FR-05의 2·3회 "두드러진 패턴 없음" 안내는 이슈 #35 기준(X 2회
 - 73 / 82 / 83 / 75점과 등급 배지 확인: 73·75점은 "매우양호", 82·83점은 "백옥 피부 미녀(미남)"
 - 배지 구간이 코드 기준(`frontend/app.js` `overallScoreTier`: 71~80점 매우양호, 81점 이상 백옥 피부 미녀)과 일치함
 
-### FR-05 유사 증상 패턴 안내 — 충족 (2·3회 처리는 팀 결정)
-- 기대 결과: 'SKIN 패턴 분석' 카드에 패턴 이름·유사도(%)와 진단이 아니라는 고지
-- 1회: "아토피피부염 유사도 35%" + 진단 아님 고지 → 기대 결과와 일치
-- 2·3회: "사진에서 특별히 두드러진 질환 패턴은 발견되지 않았습니다"만 표시되고 패턴 이름·유사도 없음
-- V2: "지루피부염 유사도 45%" 표시
-- V6(재검증): "주사 유사도 75%"와 근거 설명 표시
-- 판정: 패턴 이름·유사도가 나온 시도가 1회·V2·V6 3번이라 충족
-- 참고: 갱신된 화면(V2·V6)은 패턴 카드 안에 별도의 "진단 아님" 문장이 없고, 화면 상단 "REFERENCE SCREENING, NOT DIAGNOSIS"와 하단 "참고용 스크리닝 자료" 안내로 고지함
-- 팀 결정 사항: 패턴이 없을 때의 안내(2·3회)를 명세 기대 결과에 추가할지
+### FR-05 유사 증상 패턴 안내 — 충족
+- 기대 결과(턴 16 보완): 'SKIN 패턴 분석' 카드에 유사 패턴 이름·유사도(%) 표시. 두드러진 패턴이 없으면 '특별히 두드러진 질환 패턴은 발견되지 않았습니다' 안내 표시. 화면에 진단이 아닌 참고용 스크리닝이라는 고지 포함
+- 1회: "아토피피부염 유사도 35%" + 진단 아님 고지 → 일치
+- 2·3회: "사진에서 특별히 두드러진 질환 패턴은 발견되지 않았습니다" 안내 → 일치 (`FR07_T2_tips.jpg`, `FR07_T3_tips.jpg`에 같은 카드가 보임)
+- V2: "지루피부염 유사도 45%" 표시 → 일치
+- V6(재검증): "주사 유사도 75%"와 근거 설명 표시 → 일치
+- 고지: 모든 화면 상단 "REFERENCE SCREENING, NOT DIAGNOSIS"와 하단 "참고용 스크리닝 자료" 안내로 확인
+- 턴 16 검증 중 명세 보완: 처음 기대 결과에는 패턴이 없을 때의 안내가 없어 2·3회를 ❌로 기록했으나, 팀 결정(PR #43 리뷰)에 따라 명세 10장에 추가하고 ✅로 바꿈
 
 ### FR-06 전문의 상담 권장·병원 검색 — 충족
 - 확인 방법: 위치 접근을 허용하고 분석. 종합 점수 40점 이하 또는 AI가 상담 필요로 판단하는 결과 확인
@@ -127,7 +126,7 @@ FR-05의 2·3회 "두드러진 패턴 없음" 안내는 이슈 #35 기준(X 2회
 | FR-01 | <img src="captures/FR01_T1_upload.jpg" width="110"> <img src="captures/FR01_T2_upload.jpg" width="110"> <img src="captures/FR01_V2_camera_live.jpg" width="110"> <img src="captures/FR01_V2_camera_preview.jpg" width="110"> | [T1_FR01_upload_result.mp4](must_evidence/T1_FR01_upload_result.mp4), [C5_FR01_T2_upload.mp4](must_evidence/C5_FR01_T2_upload.mp4), [V2_FR01_camera_result.mp4](must_evidence/V2_FR01_camera_result.mp4) |
 | FR-02 | <img src="captures/FR02_T1_consent.jpg" width="110"> <img src="captures/FR02_T1_block_unchecked.jpg" width="110"> | [C1_FR02_consent_block.mp4](must_evidence/C1_FR02_consent_block.mp4), [V3_FR02_consent_retest.mp4](must_evidence/V3_FR02_consent_retest.mp4) |
 | FR-03·04 | <img src="captures/FR03-04_T1_score_6items.jpg" width="110"> <img src="captures/FR03-04_T2_score_6items.jpg" width="110"> <img src="captures/FR03-04_T3_score_6items.jpg" width="110"> <img src="captures/FR03-04_V2_score_6items.jpg" width="110"> | - |
-| FR-05 | <img src="captures/FR05-07_T1_pattern_tips.jpg" width="110"> <img src="captures/FR05-07_V2_pattern_tips.jpg" width="110"> <img src="captures/FR05-07_V6_pattern_tips.jpg" width="110"> | - |
+| FR-05 | <img src="captures/FR05-07_T1_pattern_tips.jpg" width="110"> <img src="captures/FR07_T2_tips.jpg" width="110"> <img src="captures/FR07_T3_tips.jpg" width="110"> <img src="captures/FR05-07_V2_pattern_tips.jpg" width="110"> <img src="captures/FR05-07_V6_pattern_tips.jpg" width="110"> | - |
 | FR-06 | <img src="captures/FR06_V5_dermatologist_advice.jpg" width="110"> <img src="captures/FR06_V5_nearby_clinics.jpg" width="110"> <img src="captures/FR06_V6_dermatologist_advice.jpg" width="110"> <img src="captures/FR06_V6_nearby_clinics.jpg" width="110"> | - |
 | FR-07 | <img src="captures/FR05-07_T1_pattern_tips.jpg" width="110"> <img src="captures/FR07_T2_tips.jpg" width="110"> <img src="captures/FR07_T3_tips.jpg" width="110"> <img src="captures/FR05-07_V2_pattern_tips.jpg" width="110"> <img src="captures/FR05-07_V6_pattern_tips.jpg" width="110"> | - |
 | FR-08·09 | <img src="captures/FR08-09_after_T2_history.jpg" width="110"> <img src="captures/FR08-09_after_T3_history.jpg" width="110"> | - |
