@@ -178,3 +178,24 @@
 - [T1_FR01_upload_result.mp4](must_evidence/T1_FR01_upload_result.mp4)
 - [V2_FR01_camera_result.mp4](must_evidence/V2_FR01_camera_result.mp4)
 - [V3_FR02_consent_retest.mp4](must_evidence/V3_FR02_consent_retest.mp4)
+
+## 6. 서비스 유지 점검 (서경환)
+
+결과 안내 기간(제출 후 약 3일, 11/3 전후)까지 평가자가 서비스를 그대로 쓸 수 있는지 점검했습니다.
+
+- 점검일: 2026-10-18 · 점검자: 서경환
+- 대상: 프론트 https://ai-skinscope-team.vercel.app · 백엔드 https://ai-skinscope-team.onrender.com
+
+| 점검 | 방법 | 결과 | 판정 |
+| --- | --- | --- | --- |
+| 백엔드 상태 | `curl /health` | `{"status":"ok"}`. 휴면 후 첫 응답 43초, 이후 0.4초 | 충족 (첫 접속 약 50초는 README 접속 안내에 명시) |
+| 프론트 접속 | `curl` 배포 주소 | HTTP 200 (0.6초) | 충족 |
+| 프론트→백엔드 연결 | 프론트 출처로 CORS 확인 | `access-control-allow-origin: https://ai-skinscope-team.vercel.app` | 충족 |
+| DB 연결 | 없는 ID로 `GET /history/{id}` | HTTP 200, 빈 이력 반환 (PostgreSQL 연결 정상) | 충족 |
+| DB 만료일 | Render → `ai-skinscope-db` 만료 표시 | 2026-11-11 | 충족 (결과 안내 예상일 11/3 이후) |
+| 외부 API 키 | `GET /uv-index` (OpenWeatherMap) | HTTP 200, UV 지수 반환 | 충족 |
+| Gemini 키 | 10/18 재검증(V4~V6) 분석 성공 + AI Studio 사용량 | 한도 이내 | 충족 |
+| 백엔드 배포 버전 | Render Events의 최근 배포 커밋과 main 비교 | `f06fc75` (PR #22). 이후 main 변경은 문서·프론트·스크립트·코드 스타일 설정(`pyproject.toml`)뿐이고 `app/`·`requirements.txt` 변경 없음 → 배포본 백엔드 코드 = main | 충족 |
+| 비밀 키 노출 | 모든 브랜치 이력에서 Gemini 키·DB 접속 주소 패턴 검색, `.env` 추적 여부 | 0줄, `.env` 추적 0개 (`.env.example`은 자리표시 값만 있음) | 충족 |
+
+비밀 키 검색 명령: `git log --all -p | grep -nE "AIza[0-9A-Za-z_-]{20,}|postgres(ql)?://[^ ]*:[^ ]*@"`, `git ls-files | grep -E "(^|/)\.env$"`
