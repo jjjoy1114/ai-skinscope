@@ -2,11 +2,11 @@
 
 Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되는 사진·영상을 FR별로 정리했습니다.
 
-- 관련 이슈: [#35](https://github.com/jjjoy1114/ai-skinscope/issues/35) · 상세 기록: [`docs/test/must_verification.md`](/docs/test/must_verification.md)
-- 판정 기준: [`기능요구명세서.md`](/docs/기능요구명세서.md) 10장의 **확인 방법·기대 결과**. 3회 중 2회 이상 기대 결과가 나오면 **충족**
-- 사진: [`docs/screenshots/process/`](/docs/screenshots/process/)의 `T16-MK-1` ~ `T16-MK-17` (성공 화면만)
+- 관련 이슈: [#35](https://github.com/jjjoy1114/ai-skinscope/issues/35) · 상세 기록: [`docs/test/must_verification.md`](../must_verification.md)
+- 판정 기준: [`기능요구명세서.md`](../../기능요구명세서.md) 10장의 **확인 방법·기대 결과**. 3회 중 2회 이상 기대 결과가 나오면 **충족**
+- 사진: [`docs/test/captures/`](../captures/) 폴더의 24장 (성공 화면만)
 - 영상: 이 폴더의 MP4 6개. 누르는 순서가 증거인 항목(FR-01, FR-02)과 결함 후보 1건. GitHub에서 파일을 누르면 내려받아 재생할 수 있습니다
-- 개인정보: 명세서 4장 규칙에 따라 얼굴, 휴대폰 앨범 목록, 파일 이름은 흐림 처리했습니다
+- 개인정보: 명세서 4장 규칙에 따라 얼굴, 사용자 ID, 실제 나이를 계산할 수 있는 피부 나이 표시, 휴대폰 앨범 목록, 파일 이름은 흐림 처리했습니다 ('근처 피부과' 목록은 FR-06 증거라 그대로 둠)
 
 ## 회차 표기
 
@@ -15,6 +15,9 @@ Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되
 | 1회 · 2회 · 3회 | 10/16 16:30 · 16:33 · 16:35 | 같은 ID, 같은 배포 버전. 1회 사진 A, 2·3회 사진 B (3회는 화면에 남아 있던 사진 재분석) |
 | V2 | 10/17 10:44 | 추가 검증: 카메라 촬영 → 분석 (화면이 갱신된 버전) |
 | V3 | 10/17 | 추가 검증: 동의 절차 재확인 (동의 기록이 없는 크롬) |
+| V4 | 10/18 13:17 | 리뷰 후 재검증: 피드백 전송 (본인 사진 D) |
+| V5 | 10/18 13:19~13:20 | 리뷰 후 재검증: 56점, 전문의 상담 권고·근처 피부과, 피드백 전송 (사진 D, 위치 허용) |
+| V6 | 10/18 13:22~13:23 | 리뷰 후 재검증: 62점, 전문의 상담 권고·근처 피부과, 패턴 "주사" (사진 D, 위치 허용) |
 
 ## 판정 요약
 
@@ -24,14 +27,14 @@ Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되
 | FR-02 | 촬영 전 동의 | ✅ | ➖ | ➖ | ✅ V3 | **충족** |
 | FR-03 | AI 이미지 분석 | ✅ | ✅ | ✅ | ✅ V2 | **충족** |
 | FR-04 | 피부 건강 점수 | ✅ | ✅ | ✅ | ✅ V2 | **충족** |
-| FR-05 | 유사 증상 패턴 안내 | ✅ | ❌ | ❌ | ✅ V2 | **확인 필요** |
-| FR-06 | 전문의 상담 권장·병원 검색 | ❌ | ❌ | ❌ | ❌ V2 | **미충족 (조건 미발생)** |
-| FR-07 | 관리 코칭 메시지 | ✅ | ✅ | ✅ | ✅ V2 | **충족** |
+| FR-05 | 유사 증상 패턴 안내 | ✅ | ❌ | ❌ | ✅ V2, V6 | **충족** (2·3회 처리는 팀 결정) |
+| FR-06 | 전문의 상담 권장·병원 검색 | ⛔ | ⛔ | ⛔ | ⛔ V2 · ✅ V5, V6 | **충족** |
+| FR-07 | 관리 코칭 메시지 | ✅ | ✅ | ✅ | ✅ V2, V6 | **충족** |
 | FR-08 | 이력 저장 | ✅ | ✅ | ✅ | - | **충족** |
 | FR-09 | 변화 추적 | ➖ | ✅ | ✅ | - | **충족** |
-| FR-10 | 사용자 피드백 수집 | ✅ | ➖ | ➖ | - | **추가 검증 필요** |
+| FR-10 | 사용자 피드백 수집 | ✅ | ➖ | ➖ | ✅ V4, V5 | **충족** |
 
-✅ 기대 결과 확인 / ❌ 기대 결과와 다름 / ➖ 해당 회차에서 동작을 수행하지 않음(성공 횟수에 포함하지 않음)
+✅ 기대 결과 확인 / ❌ 기대 결과와 다름 / ➖ 해당 회차에서 동작을 수행하지 않음(성공 횟수에 포함하지 않음) / ⛔ 확인 조건(40점 이하 또는 AI 상담 필요 판단)이 나오지 않아 해당 없음
 
 ## FR별 검증과 증빙
 
@@ -41,10 +44,10 @@ Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되
 
 | 사진 | 검증 내용 |
 |---|---|
-| <img src="/docs/screenshots/process/T16-MK-1.png" width="160"> | T16-MK-1 · 1회 갤러리 업로드 후 미리보기 |
-| <img src="/docs/screenshots/process/T16-MK-2.png" width="160"> | T16-MK-2 · 2회 갤러리 업로드 후 미리보기 |
-| <img src="/docs/screenshots/process/T16-MK-3.png" width="160"> | T16-MK-3 · V2 카메라 촬영 화면(타원 가이드) |
-| <img src="/docs/screenshots/process/T16-MK-4.png" width="160"> | T16-MK-4 · V2 촬영 후 미리보기 |
+| <img src="../captures/FR01_T1_upload.jpg" width="160"> | `FR01_T1_upload.jpg` · 1회 갤러리 업로드 후 미리보기 |
+| <img src="../captures/FR01_T2_upload.jpg" width="160"> | `FR01_T2_upload.jpg` · 2회 갤러리 업로드 후 미리보기 |
+| <img src="../captures/FR01_V2_camera_live.jpg" width="160"> | `FR01_V2_camera_live.jpg` · V2 카메라 촬영 화면(타원 가이드) |
+| <img src="../captures/FR01_V2_camera_preview.jpg" width="160"> | `FR01_V2_camera_preview.jpg` · V2 촬영 후 미리보기 |
 
 | 영상 | 검증 내용 |
 |---|---|
@@ -58,8 +61,8 @@ Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되
 
 | 사진 | 검증 내용 |
 |---|---|
-| <img src="/docs/screenshots/process/T16-MK-5.png" width="160"> | T16-MK-5 · 촬영 전 동의 안내(수집 항목·이용 목적·AI 생성 안내)와 체크박스 |
-| <img src="/docs/screenshots/process/T16-MK-6.png" width="160"> | T16-MK-6 · 동의 없이 진행 시 "동의해 주셔야 분석할 수 있어요" |
+| <img src="../captures/FR02_T1_consent.jpg" width="160"> | `FR02_T1_consent.jpg` · 촬영 전 동의 안내(수집 항목·이용 목적·AI 생성 안내)와 체크박스 |
+| <img src="../captures/FR02_T1_block_unchecked.jpg" width="160"> | `FR02_T1_block_unchecked.jpg` · 동의 없이 진행 시 "동의해 주셔야 분석할 수 있어요" |
 
 | 영상 | 검증 내용 |
 |---|---|
@@ -72,36 +75,48 @@ Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되
 
 | 사진 | 종합 | 등급 배지 | 모공 | 탄력 | 수분 | 주름 | 색소침착 | 붉은기 |
 |---|---|---|---|---|---|---|---|---|
-| <img src="/docs/screenshots/process/T16-MK-7.png" width="120"><br>T16-MK-7 · 1회 | 73 | 매우양호 | 70 | 61 | 79 | 69 | 78 | 70 |
-| <img src="/docs/screenshots/process/T16-MK-8.png" width="120"><br>T16-MK-8 · 2회 | 82 | 백옥 피부 미녀(미남) | 78 | 72 | 80 | 85 | 82 | 82 |
-| <img src="/docs/screenshots/process/T16-MK-9.png" width="120"><br>T16-MK-9 · 3회 | 83 | 백옥 피부 미녀(미남) | 80 | 78 | 82 | 85 | 82 | 80 |
-| <img src="/docs/screenshots/process/T16-MK-10.png" width="120"><br>T16-MK-10 · V2 | 75 | 매우양호 | 68 | 50 | 83 | 83 | 73 | 70 |
+| <img src="../captures/FR03-04_T1_score_6items.jpg" width="120"><br>`FR03-04_T1_score_6items.jpg` · 1회 | 73 | 매우양호 | 70 | 61 | 79 | 69 | 78 | 70 |
+| <img src="../captures/FR03-04_T2_score_6items.jpg" width="120"><br>`FR03-04_T2_score_6items.jpg` · 2회 | 82 | 백옥 피부 미녀(미남) | 78 | 72 | 80 | 85 | 82 | 82 |
+| <img src="../captures/FR03-04_T3_score_6items.jpg" width="120"><br>`FR03-04_T3_score_6items.jpg` · 3회 | 83 | 백옥 피부 미녀(미남) | 80 | 78 | 82 | 85 | 82 | 80 |
+| <img src="../captures/FR03-04_V2_score_6items.jpg" width="120"><br>`FR03-04_V2_score_6items.jpg` · V2 | 75 | 매우양호 | 68 | 50 | 83 | 83 | 73 | 70 |
 
-### FR-05 유사 증상 패턴 안내 — 확인 필요
+### FR-05 유사 증상 패턴 안내 — 충족 (2·3회 처리는 팀 결정)
 - 기대 결과: 'SKIN 패턴 분석' 카드에 패턴 이름·유사도(%)와 진단이 아니라는 고지
-- 1회·V2는 패턴 이름·유사도 표시. 2·3회는 "사진에서 특별히 두드러진 질환 패턴은 발견되지 않았습니다"만 표시되어, 이 안내를 정상 동작으로 볼지 팀 결정 필요
+- 1회·V2·V6에서 패턴 이름·유사도 표시 → 충족
+- 2·3회는 "사진에서 특별히 두드러진 질환 패턴은 발견되지 않았습니다"만 표시. 이 안내를 명세 기대 결과에 추가할지는 팀 결정 사항
+- 갱신된 화면(V2·V6)은 카드 안에 별도 "진단 아님" 문장이 없고, 상단 "REFERENCE SCREENING, NOT DIAGNOSIS"와 하단 "참고용 스크리닝 자료" 안내로 고지함
 
 | 사진 | 검증 내용 |
 |---|---|
-| <img src="/docs/screenshots/process/T16-MK-11.png" width="160"> | T16-MK-11 · 1회 "아토피피부염 유사도 35%" + 진단 아님 고지 |
-| <img src="/docs/screenshots/process/T16-MK-12.png" width="160"> | T16-MK-12 · V2 "지루피부염 유사도 45%" |
+| <img src="../captures/FR05-07_T1_pattern_tips.jpg" width="160"> | `FR05-07_T1_pattern_tips.jpg` · 1회 "아토피피부염 유사도 35%" + 진단 아님 고지 |
+| <img src="../captures/FR05-07_V2_pattern_tips.jpg" width="160"> | `FR05-07_V2_pattern_tips.jpg` · V2 "지루피부염 유사도 45%" |
+| <img src="../captures/FR05-07_V6_pattern_tips.jpg" width="160"> | `FR05-07_V6_pattern_tips.jpg` · V6 "주사 유사도 75%" + 근거 설명 |
 
-### FR-06 전문의 상담 권장·병원 검색 — 미충족 (조건 미발생)
+### FR-06 전문의 상담 권장·병원 검색 — 충족
 - 기대 결과: 종합 점수 40점 이하 또는 AI가 상담 필요로 판단하면 전문의 상담 권장 문구, 위치가 있으면 '근처 피부과' 목록
-- 4번 모두 73~83점이고 AI도 상담 필요로 판단하지 않아 나오지 않음 (`agent_service.py`의 40점 규칙과 일치하는 정상 동작)
+- 1~3회·V2는 73~83점이고 AI도 상담 필요로 판단하지 않아 확인 조건이 나오지 않음(해당 없음)
+- V5(56점)·V6(62점)에서 "피부과 전문의 진료 권고" 배지, "전문의 상담을 권장드려요. 가까운 피부과 방문을 고려해보세요.", '근처 피부과' 4곳 표시 → 2번 모두 기대 결과와 일치
+- 두 번 모두 40점보다 높으므로 "AI가 상담 필요로 판단" 조건으로 나온 결과로 보임
 - 결과 하단의 "피부과 전문의와 상담하시기 바랍니다"는 모든 결과에 나오는 고정 안내문이라 증거로 세지 않음
-- 성공 화면 없음. Render 카카오 키 확인(서경환) 후 조건을 충족하는 사진으로 재검증 필요
+
+| 사진 | 검증 내용 |
+|---|---|
+| <img src="../captures/FR06_V5_dermatologist_advice.jpg" width="160"> | `FR06_V5_dermatologist_advice.jpg` · V5 56점, 피부과 전문의 진료 권고와 상담 권장 문구 |
+| <img src="../captures/FR06_V5_nearby_clinics.jpg" width="160"> | `FR06_V5_nearby_clinics.jpg` · V5 '근처 피부과' 4곳 |
+| <img src="../captures/FR06_V6_dermatologist_advice.jpg" width="160"> | `FR06_V6_dermatologist_advice.jpg` · V6 62점, 피부과 전문의 진료 권고와 상담 권장 문구 |
+| <img src="../captures/FR06_V6_nearby_clinics.jpg" width="160"> | `FR06_V6_nearby_clinics.jpg` · V6 '근처 피부과' 4곳 |
 
 ### FR-07 관리 코칭 메시지 — 충족
 - 기대 결과: '맞춤 스킨케어 팁' 카드에 분석 결과에 맞는 관리 팁 표시
-- 4번 모두 확인. 결과에 따라 소견과 팁 내용이 달라짐(예: 1회·V2 소견 "모공 관리에 집중해보세요", 2회 "꾸준한 수분 보습과 자외선 차단 케어", 3회 "데일리 보습 관리")
+- 1~3회·V2·V6 모두 확인. 결과에 따라 소견과 팁 내용이 달라짐(예: 1회·V2 소견 "모공 관리에 집중해보세요", 2회 "꾸준한 수분 보습과 자외선 차단 케어", 3회 "데일리 보습 관리", V6 "붉은기 및 예민해진 피부 진정 관리에 집중해보세요")
 
 | 사진 | 검증 내용 |
 |---|---|
-| <img src="/docs/screenshots/process/T16-MK-11.png" width="160"> | T16-MK-11 · 1회 맞춤 스킨케어 팁 (FR-05와 같은 화면) |
-| <img src="/docs/screenshots/process/T16-MK-13.png" width="160"> | T16-MK-13 · 2회 맞춤 스킨케어 팁 |
-| <img src="/docs/screenshots/process/T16-MK-14.png" width="160"> | T16-MK-14 · 3회 맞춤 스킨케어 팁 |
-| <img src="/docs/screenshots/process/T16-MK-12.png" width="160"> | T16-MK-12 · V2 맞춤 스킨케어 팁 (FR-05와 같은 화면) |
+| <img src="../captures/FR05-07_T1_pattern_tips.jpg" width="160"> | `FR05-07_T1_pattern_tips.jpg` · 1회 맞춤 스킨케어 팁 (FR-05와 같은 화면) |
+| <img src="../captures/FR07_T2_tips.jpg" width="160"> | `FR07_T2_tips.jpg` · 2회 맞춤 스킨케어 팁 |
+| <img src="../captures/FR07_T3_tips.jpg" width="160"> | `FR07_T3_tips.jpg` · 3회 맞춤 스킨케어 팁 |
+| <img src="../captures/FR05-07_V2_pattern_tips.jpg" width="160"> | `FR05-07_V2_pattern_tips.jpg` · V2 맞춤 스킨케어 팁 (FR-05와 같은 화면) |
+| <img src="../captures/FR05-07_V6_pattern_tips.jpg" width="160"> | `FR05-07_V6_pattern_tips.jpg` · V6 진정 관리 소견과 맞춤 스킨케어 팁 (FR-05와 같은 화면) |
 
 ### FR-08 이력 저장 · FR-09 변화 추적 — 충족
 - FR-08 기대 결과: '이력' 탭에 방금 기록이 날짜·점수와 함께 표시 → 2회 후 2건, 3회 후 3건으로 3번 모두 저장 확인
@@ -110,16 +125,18 @@ Must 기능 10개(FR-01~10)를 3회씩 검증한 결과와, 판정 근거가 되
 
 | 사진 | 검증 내용 |
 |---|---|
-| <img src="/docs/screenshots/process/T16-MK-15.png" width="160"> | T16-MK-15 · 2회 후 이력 2건(73·82점), TREND +9 |
-| <img src="/docs/screenshots/process/T16-MK-16.png" width="160"> | T16-MK-16 · 3회 후 이력 3건(73·82·83점), TREND +1 |
+| <img src="../captures/FR08-09_after_T2_history.jpg" width="160"> | `FR08-09_after_T2_history.jpg` · 2회 후 이력 2건(73·82점), TREND +9 |
+| <img src="../captures/FR08-09_after_T3_history.jpg" width="160"> | `FR08-09_after_T3_history.jpg` · 3회 후 이력 3건(73·82·83점), TREND +1 |
 
-### FR-10 사용자 피드백 수집 — 추가 검증 필요
+### FR-10 사용자 피드백 수집 — 충족
 - 기대 결과: 1~5점 선택 → '피드백 보내기' → "소중한 의견 감사합니다!" 표시
-- 1회 확인. 2·3회는 피드백을 보내지 않아 기록 없음(실패 아님) → 2회 추가 전송 후 반영 예정
+- 1회·V4·V5에서 확인. 2·3회는 피드백을 보내지 않아 기록 없음(실패 아님)
 
 | 사진 | 검증 내용 |
 |---|---|
-| <img src="/docs/screenshots/process/T16-MK-17.png" width="160"> | T16-MK-17 · 1회 5점 전송 → "소중한 의견 감사합니다!" |
+| <img src="../captures/FR10_T1_feedback_sent.jpg" width="160"> | `FR10_T1_feedback_sent.jpg` · 1회 5점 전송 → "소중한 의견 감사합니다!" |
+| <img src="../captures/FR10_V4_feedback_sent.jpg" width="160"> | `FR10_V4_feedback_sent.jpg` · V4 5점 전송 → "소중한 의견 감사합니다!" |
+| <img src="../captures/FR10_V5_feedback_sent.jpg" width="160"> | `FR10_V5_feedback_sent.jpg` · V5 4점 전송 → "소중한 의견 감사합니다!" |
 
 ## 결함 후보 영상
 
