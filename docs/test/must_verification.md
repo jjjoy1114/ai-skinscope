@@ -1,0 +1,201 @@
+# Must 기능 3회 검증 결과 (턴 16)
+
+- 관련 이슈: [#35](https://github.com/jjjoy1114/ai-skinscope/issues/35)
+- 담당: 조민경
+- 대상: https://ai-skinscope-team.vercel.app
+- 판정 기준: [`기능요구명세서.md`](../기능요구명세서.md) 10장 "구현 현황" 표의 **확인 방법·기대 결과**. 3회 시도 중 2회 이상 기대 결과가 나오면 **충족**
+- 개인정보: 명세서 4장 규칙에 따라 캡처·영상 속 얼굴, 사용자 ID, 실제 나이를 계산할 수 있는 피부 나이 표시, 휴대폰 앨범·파일 목록은 흐림 처리함 ('근처 피부과' 목록은 FR-06 증거라 그대로 둠)
+
+## 1. 시도 기록
+
+| 회차 | 일시 | 환경 | 입력 | 사진 | 결과 | 이력 |
+|---|---|---|---|---|---|---|
+| 1회 | 10/16 16:30 | Android · 삼성 인터넷 | 나이·성별 미입력 | 사진 A (갤러리 업로드) | 73점 | SCAN 001 |
+| 2회 | 10/16 16:33 | 〃 | 39세 · 여성 | 사진 B (갤러리 업로드) | 82점, 피부나이 31세 | SCAN 002 |
+| 3회 | 10/16 16:35 | 〃 | 30세 · 여성 | 사진 B (화면에 남아 있던 사진 재분석) | 83점, 피부나이 22세 | SCAN 003 |
+| 추가 (V2) | 10/17 10:44 | Android · 홈 화면 앱(PWA), 갱신된 화면 | 나이(비공개) · 여성 | 사진 C (카메라 촬영) | 75점 | 새 ID |
+| 추가 (V3) | 10/17 업로드 영상 | Android · 크롬(동의 기록이 없는 브라우저) | - | - | 동의 절차만 검증 | - |
+| 추가 (V4) | 10/18 13:17 | Android · 밝은 테마 화면 | 나이·성별 입력(비공개) | 사진 D (본인 사진) | FR-10 피드백 5점 전송 | 새 ID |
+| 추가 (V5) | 10/18 13:19~13:20 | 〃, 위치 허용 | 〃 | 사진 D | 56점, 피부과 전문의 진료 권고 | 〃 |
+| 추가 (V6) | 10/18 13:22~13:23 | 〃, 위치 허용 | 〃 | 사진 D | 62점, 피부과 전문의 진료 권고 | 〃 |
+
+- 1~3회는 같은 ID, 같은 배포 버전에서 진행함
+- 추가 V2·V3은 화면 테마가 바뀐 이후 버전에서 진행함
+- 추가 V4~V6은 PR #43 리뷰 후 FR-05·06·10 재검증을 위해 진행함 (V5·V6은 트러블이 있는 본인 사진, 위치 허용)
+
+## 2. 판정 요약
+
+| FR | 기능 | 1회 | 2회 | 3회 | 추가 | 판정 |
+|---|---|---|---|---|---|---|
+| FR-01 | 사진 촬영/업로드 | ✅ | ✅ | ➖ | ✅ (V2 촬영) | **충족** |
+| FR-02 | 촬영 전 동의 | ✅ | ➖ | ➖ | ✅ (V3) | **충족** |
+| FR-03 | AI 이미지 분석 | ✅ | ✅ | ✅ | ✅ (V2) | **충족** |
+| FR-04 | 피부 건강 점수 | ✅ | ✅ | ✅ | ✅ (V2) | **충족** |
+| FR-05 | 유사 증상 패턴 안내 | ✅ | ✅ | ✅ | ✅ (V2, V6) | **충족** |
+| FR-06 | 전문의 상담 권장·병원 검색 | ⛔ | ⛔ | ⛔ | ⛔ (V2) · ✅ (V5, V6) | **충족** |
+| FR-07 | 관리 코칭 메시지 | ✅ | ✅ | ✅ | ✅ (V2, V6) | **충족** |
+| FR-08 | 이력 저장 | ✅ | ✅ | ✅ | - | **충족** |
+| FR-09 | 변화 추적 | ➖ | ✅ | ✅ | - | **충족** |
+| FR-10 | 사용자 피드백 수집 | ✅ | ➖ | ➖ | ✅ (V4, V5) | **충족** |
+
+✅ 기대 결과 확인 / ❌ 기대 결과와 다름 / ➖ 해당 회차에서 동작을 수행하지 않음(성공 횟수에 포함하지 않음) / ⛔ 확인 조건(40점 이하 또는 AI 상담 필요 판단)이 나오지 않아 해당 없음(성공 횟수에 포함하지 않음)
+
+**충족 10개** (첫 제출 때 확인 필요·미충족·추가 검증 필요였던 FR-05·06·10은 PR #43 리뷰 후 V4~V6 재검증으로 충족)
+
+턴 16 검증 중 명세 보완: FR-05 2·3회의 "두드러진 패턴 없음" 안내를 단톡방에 공유했고, 팀 결정에 따라 `기능요구명세서.md` 10장 FR-05 기대 결과에 추가함. 이에 따라 2·3회도 충족으로 판정함.
+
+## 3. 항목별 상세
+
+### FR-01 사진 촬영/업로드 — 충족
+- 확인 방법: '스캔' 화면에서 동의 후 촬영하거나 '갤러리에서 사진 선택' → '이 사진으로 분석하기'
+- 기대 결과: '분석 중...' 표시 후 결과 화면으로 이동
+- 1·2회: 갤러리 업로드 → 분석 → 결과 이동 확인
+- 3회: 새 사진을 올리지 않고 화면에 남아 있던 2회 사진으로 분석해 성공 횟수에서 제외 (아래 5장 결함 후보 4)
+- 추가 V2: 카메라 촬영 → 미리보기 → 분석 → 결과 이동 확인 (촬영 경로)
+
+### FR-02 촬영 전 동의 — 충족
+- 확인 방법: 동의하지 않은 상태에서 '촬영' 또는 '갤러리에서 사진 선택' 누르기
+- 기대 결과: 촬영·파일 선택을 진행하지 않고 '동의해 주셔야 분석할 수 있어요' 안내 표시
+- 1회: 갤러리 버튼 → 진행되지 않고 안내 표시 확인
+- 2·3회: 동의 화면이 다시 나오지 않음(1회 동의 상태가 저장된 것으로 보임) → 제외
+- 추가 V3: 동의 기록이 없는 크롬에서 촬영 버튼을 여러 번 눌러도 촬영되지 않고 안내 표시 확인
+
+### FR-03 AI 이미지 분석 — 충족
+- 기대 결과: 모공·탄력·수분·주름·색소침착·붉은기 6개 항목 점수 표시
+
+| 회차 | 모공 | 탄력 | 수분 | 주름 | 색소침착 | 붉은기 |
+|---|---|---|---|---|---|---|
+| 1회 | 70 | 61 | 79 | 69 | 78 | 70 |
+| 2회 | 78 | 72 | 80 | 85 | 82 | 82 |
+| 3회 | 80 | 78 | 82 | 85 | 82 | 80 |
+| V2 | 68 | 50 | 83 | 83 | 73 | 70 |
+
+### FR-04 피부 건강 점수 — 충족
+- 기대 결과: 종합 점수(0~100점)와 등급 배지 표시
+- 73 / 82 / 83 / 75점과 등급 배지 확인: 73·75점은 "매우양호", 82·83점은 "백옥 피부 미녀(미남)"
+- 배지 구간이 코드 기준(`frontend/app.js` `overallScoreTier`: 71~80점 매우양호, 81점 이상 백옥 피부 미녀)과 일치함
+
+### FR-05 유사 증상 패턴 안내 — 충족
+- 기대 결과(턴 16 보완): 'SKIN 패턴 분석' 카드에 유사 패턴 이름·유사도(%) 표시. 두드러진 패턴이 없으면 '특별히 두드러진 질환 패턴은 발견되지 않았습니다' 안내 표시. 화면에 진단이 아닌 참고용 스크리닝이라는 고지 포함
+- 1회: "아토피피부염 유사도 35%" + 진단 아님 고지 → 일치
+- 2·3회: "사진에서 특별히 두드러진 질환 패턴은 발견되지 않았습니다" 안내 → 일치 (`FR07_T2_tips.jpg`, `FR07_T3_tips.jpg`에 같은 카드가 보임)
+- V2: "지루피부염 유사도 45%" 표시 → 일치
+- V6(재검증): "주사 유사도 75%"와 근거 설명 표시 → 일치
+- 고지: 모든 화면 상단 "REFERENCE SCREENING, NOT DIAGNOSIS"와 하단 "참고용 스크리닝 자료" 안내로 확인
+- 턴 16 검증 중 명세 보완: 처음 기대 결과에는 패턴이 없을 때의 안내가 없어 2·3회를 ❌로 기록했으나, 팀 결정(PR #43 리뷰)에 따라 명세 10장에 추가하고 ✅로 바꿈
+
+### FR-06 전문의 상담 권장·병원 검색 — 충족
+- 확인 방법: 위치 접근을 허용하고 분석. 종합 점수 40점 이하 또는 AI가 상담 필요로 판단하는 결과 확인
+- 기대 결과: 전문의 상담 권장 문구, 위치가 있으면 '근처 피부과' 목록
+- 1~3회·V2: 73~83점이고 AI도 상담 필요로 판단하지 않아 확인 조건이 나오지 않음 → 해당 없음(⛔)
+- V5(재검증): 56점, "피부과 전문의 진료 권고" 배지와 "전문의 상담을 권장드려요. 가까운 피부과 방문을 고려해보세요." 표시, '근처 피부과' 4곳(거리 418~878m) 표시
+- V6(재검증): 62점, 같은 권고 문구와 '근처 피부과' 4곳(거리 416~876m) 표시
+- 판단 근거: 두 번 모두 40점보다 높으므로 "AI가 상담 필요로 판단" 조건으로 나온 결과로 보임
+- 참고: 결과 하단의 "정확한 의학적 진단은 반드시 피부과 전문의와 상담하시기 바랍니다"는 모든 결과에 나오는 고정 안내문이라 FR-06 증거로 세지 않음
+
+### FR-07 관리 코칭 메시지 — 충족
+- 기대 결과: '맞춤 스킨케어 팁' 카드에 분석 결과에 맞는 관리 팁 표시
+- 1~3회·V2 모두 표시. 결과에 따라 소견과 팁 내용이 달라짐(예: 1회·V2 소견 "모공 관리에 집중해보세요", 2회 "꾸준한 수분 보습과 자외선 차단 케어", 3회 "데일리 보습 관리")
+- V6: 붉은기 결과에 맞춰 소견 "붉은기 및 예민해진 피부 진정 관리에 집중해보세요"와 진정·보습·무기자차 선크림 팁 표시
+
+### FR-08 이력 저장 — 충족
+- 기대 결과: 하단 '이력' 탭에 방금 기록이 날짜·점수와 함께 표시
+- 2회 후 SCAN 001(73)·002(82), 3회 후 SCAN 001~003(73·82·83) 확인 → 3번 분석 모두 저장됨
+
+### FR-09 변화 추적 — 충족
+- 기대 결과: 같은 ID로 2회 이상 분석 후 '이력' 탭 TREND 배너에 직전 기록 대비 점수 변화 표시
+- 1회: 비교할 이전 기록 없음
+- 2회: TREND +9 (73 → 82) 확인
+- 3회: TREND +1 (82 → 83) 확인
+- 참고: 3회는 2회와 같은 사진이라 "실제 피부 변화"를 보여주는 사례는 아님 (화면 기능 자체는 정상)
+
+### FR-10 사용자 피드백 수집 — 충족
+- 확인 방법: 결과 화면 '이 결과가 도움이 되었나요?'에서 1~5 선택 → '피드백 보내기'
+- 기대 결과: "소중한 의견 감사합니다!" 표시
+- 1회: 5점 선택 → 전송 → 감사 메시지 확인
+- 2·3회: 피드백을 보내지 않아 기록 없음 (실패가 아님)
+- V4(재검증): 5점 선택 → 전송 → 감사 메시지 확인
+- V5(재검증): 4점 선택 → 전송 → 감사 메시지 확인
+
+## 4. 증빙 자료
+
+사진은 [`captures/`](captures/) 폴더에 **기대 결과가 나온 성공 화면만** 담았고(24장), 영상은 [`must_evidence/`](must_evidence/) 폴더에 있습니다(6개). 사진·영상별 검증 내용은 [`must_evidence/README.md`](must_evidence/README.md)에 정리했습니다. 사진으로 결과가 보이는 항목은 사진으로, 누르는 순서가 증거인 항목(FR-01, FR-02)과 결함 후보 4는 영상으로 남겼습니다.
+
+| FR | 사진 | 영상 (`must_evidence` 폴더) |
+|---|---|---|
+| FR-01 | <img src="captures/FR01_T1_upload.jpg" width="110"> <img src="captures/FR01_T2_upload.jpg" width="110"> <img src="captures/FR01_V2_camera_live.jpg" width="110"> <img src="captures/FR01_V2_camera_preview.jpg" width="110"> | [T1_FR01_upload_result.mp4](must_evidence/T1_FR01_upload_result.mp4), [C5_FR01_T2_upload.mp4](must_evidence/C5_FR01_T2_upload.mp4), [V2_FR01_camera_result.mp4](must_evidence/V2_FR01_camera_result.mp4) |
+| FR-02 | <img src="captures/FR02_T1_consent.jpg" width="110"> <img src="captures/FR02_T1_block_unchecked.jpg" width="110"> | [C1_FR02_consent_block.mp4](must_evidence/C1_FR02_consent_block.mp4), [V3_FR02_consent_retest.mp4](must_evidence/V3_FR02_consent_retest.mp4) |
+| FR-03·04 | <img src="captures/FR03-04_T1_score_6items.jpg" width="110"> <img src="captures/FR03-04_T2_score_6items.jpg" width="110"> <img src="captures/FR03-04_T3_score_6items.jpg" width="110"> <img src="captures/FR03-04_V2_score_6items.jpg" width="110"> | - |
+| FR-05 | <img src="captures/FR05-07_T1_pattern_tips.jpg" width="110"> <img src="captures/FR07_T2_tips.jpg" width="110"> <img src="captures/FR07_T3_tips.jpg" width="110"> <img src="captures/FR05-07_V2_pattern_tips.jpg" width="110"> <img src="captures/FR05-07_V6_pattern_tips.jpg" width="110"> | - |
+| FR-06 | <img src="captures/FR06_V5_dermatologist_advice.jpg" width="110"> <img src="captures/FR06_V5_nearby_clinics.jpg" width="110"> <img src="captures/FR06_V6_dermatologist_advice.jpg" width="110"> <img src="captures/FR06_V6_nearby_clinics.jpg" width="110"> | - |
+| FR-07 | <img src="captures/FR05-07_T1_pattern_tips.jpg" width="110"> <img src="captures/FR07_T2_tips.jpg" width="110"> <img src="captures/FR07_T3_tips.jpg" width="110"> <img src="captures/FR05-07_V2_pattern_tips.jpg" width="110"> <img src="captures/FR05-07_V6_pattern_tips.jpg" width="110"> | - |
+| FR-08·09 | <img src="captures/FR08-09_after_T2_history.jpg" width="110"> <img src="captures/FR08-09_after_T3_history.jpg" width="110"> | - |
+| FR-10 | <img src="captures/FR10_T1_feedback_sent.jpg" width="110"> <img src="captures/FR10_V4_feedback_sent.jpg" width="110"> <img src="captures/FR10_V5_feedback_sent.jpg" width="110"> | - |
+| 결함 후보 4 | - | [D5_photo_retained.mp4](must_evidence/D5_photo_retained.mp4) |
+
+## 5. 검증 중 발견한 사항
+
+| # | 내용 | 관련 | 비고 |
+|---|---|---|---|
+| 1 | 이력 시각이 한국 시간이 아닌 UTC로 표시됨 (실제 16:30 → 화면 07:30) | FR-08 | 결함 후보 |
+| 2 | 같은 사진(2·3회)인데 점수가 82 → 83, 탄력 72 → 78 등으로 달라져 "1점 개선"으로 안내됨 | FR-03·04·09, NFR-07 | 배포 점검 로그(턴 7)의 "같은 사진 반복 시 76~83점 변동"과 같은 기존 한계 |
+| 3 | 3회 이력 화면에서 TREND(+1)는 직전 기록 대비, 항목별 변화(모공 +10 등)는 첫 기록 대비로 계산되어 비교 기준이 섞임 | FR-09 | 의도 확인 필요 |
+| 4 | 이력 탭에 다녀와도 직전 사진이 스캔 화면에 남아 있어, 새 사진 없이 같은 사진이 다시 분석·저장될 수 있음 | FR-01·08·09 | 결함 후보, 영상 [D5_photo_retained.mp4](must_evidence/D5_photo_retained.mp4) |
+| 5 | 나이 미입력 시 피부나이 자리에 "실제 나이가 입력되지 않아 분석할 수 없습니다"가 표시됨 (명세 FR-13은 "표시하지 않음") | FR-13 (Should) | 턴 7 배포 점검(3번)에서는 정상으로 판정됨. 명세 문구와의 차이만 기록, Must 판정과 무관 |
+
+## 제출 증빙 파일 링크
+
+### 사진 증빙 (24장)
+- [FR01_T1_upload.jpg](captures/FR01_T1_upload.jpg)
+- [FR01_T2_upload.jpg](captures/FR01_T2_upload.jpg)
+- [FR01_V2_camera_live.jpg](captures/FR01_V2_camera_live.jpg)
+- [FR01_V2_camera_preview.jpg](captures/FR01_V2_camera_preview.jpg)
+- [FR02_T1_block_unchecked.jpg](captures/FR02_T1_block_unchecked.jpg)
+- [FR02_T1_consent.jpg](captures/FR02_T1_consent.jpg)
+- [FR03-04_T1_score_6items.jpg](captures/FR03-04_T1_score_6items.jpg)
+- [FR03-04_T2_score_6items.jpg](captures/FR03-04_T2_score_6items.jpg)
+- [FR03-04_T3_score_6items.jpg](captures/FR03-04_T3_score_6items.jpg)
+- [FR03-04_V2_score_6items.jpg](captures/FR03-04_V2_score_6items.jpg)
+- [FR05-07_T1_pattern_tips.jpg](captures/FR05-07_T1_pattern_tips.jpg)
+- [FR05-07_V2_pattern_tips.jpg](captures/FR05-07_V2_pattern_tips.jpg)
+- [FR05-07_V6_pattern_tips.jpg](captures/FR05-07_V6_pattern_tips.jpg)
+- [FR06_V5_dermatologist_advice.jpg](captures/FR06_V5_dermatologist_advice.jpg)
+- [FR06_V5_nearby_clinics.jpg](captures/FR06_V5_nearby_clinics.jpg)
+- [FR06_V6_dermatologist_advice.jpg](captures/FR06_V6_dermatologist_advice.jpg)
+- [FR06_V6_nearby_clinics.jpg](captures/FR06_V6_nearby_clinics.jpg)
+- [FR07_T2_tips.jpg](captures/FR07_T2_tips.jpg)
+- [FR07_T3_tips.jpg](captures/FR07_T3_tips.jpg)
+- [FR08-09_after_T2_history.jpg](captures/FR08-09_after_T2_history.jpg)
+- [FR08-09_after_T3_history.jpg](captures/FR08-09_after_T3_history.jpg)
+- [FR10_T1_feedback_sent.jpg](captures/FR10_T1_feedback_sent.jpg)
+- [FR10_V4_feedback_sent.jpg](captures/FR10_V4_feedback_sent.jpg)
+- [FR10_V5_feedback_sent.jpg](captures/FR10_V5_feedback_sent.jpg)
+
+### 영상 증빙 (6개)
+- [C1_FR02_consent_block.mp4](must_evidence/C1_FR02_consent_block.mp4)
+- [C5_FR01_T2_upload.mp4](must_evidence/C5_FR01_T2_upload.mp4)
+- [D5_photo_retained.mp4](must_evidence/D5_photo_retained.mp4)
+- [T1_FR01_upload_result.mp4](must_evidence/T1_FR01_upload_result.mp4)
+- [V2_FR01_camera_result.mp4](must_evidence/V2_FR01_camera_result.mp4)
+- [V3_FR02_consent_retest.mp4](must_evidence/V3_FR02_consent_retest.mp4)
+
+## 6. 서비스 유지 점검 (서경환)
+
+결과 안내 기간(제출 후 약 3일, 11/3 전후)까지 평가자가 서비스를 그대로 쓸 수 있는지 점검했습니다.
+
+- 점검일: 2026-10-18 · 점검자: 서경환
+- 대상: 프론트 https://ai-skinscope-team.vercel.app · 백엔드 https://ai-skinscope-team.onrender.com
+
+| 점검 | 방법 | 결과 | 판정 |
+| --- | --- | --- | --- |
+| 백엔드 상태 | `curl /health` | `{"status":"ok"}`. 휴면 후 첫 응답 43초, 이후 0.4초 | 충족 (첫 접속 약 50초는 README 접속 안내에 명시) |
+| 프론트 접속 | `curl` 배포 주소 | HTTP 200 (0.6초) | 충족 |
+| 프론트→백엔드 연결 | 프론트 출처로 CORS 확인 | `access-control-allow-origin: https://ai-skinscope-team.vercel.app` | 충족 |
+| DB 연결 | 없는 ID로 `GET /history/{id}` | HTTP 200, 빈 이력 반환 (PostgreSQL 연결 정상) | 충족 |
+| DB 만료일 | Render → `ai-skinscope-db` 만료 표시 | 2026-11-11 | 충족 (결과 안내 예상일 11/3 이후) |
+| 외부 API 키 | `GET /uv-index` (OpenWeatherMap) | HTTP 200, UV 지수 반환 | 충족 |
+| Gemini 키 | 10/18 재검증(V4~V6) 분석 성공 + AI Studio 사용량 | 한도 이내 | 충족 |
+| 백엔드 배포 버전 | Render Events의 최근 배포 커밋과 main 비교 | `f06fc75` (PR #22). 이후 main 변경은 문서·프론트·스크립트·코드 스타일 설정(`pyproject.toml`)뿐이고 `app/`·`requirements.txt` 변경 없음 → 배포본 백엔드 코드 = main | 충족 |
+| 비밀 키 노출 | 모든 브랜치 이력에서 Gemini 키·DB 접속 주소 패턴 검색, `.env` 추적 여부 | 0줄, `.env` 추적 0개 (`.env.example`은 자리표시 값만 있음) | 충족 |
+
+비밀 키 검색 명령: `git log --all -p | grep -nE "AIza[0-9A-Za-z_-]{20,}|postgres(ql)?://[^ ]*:[^ ]*@"`, `git ls-files | grep -E "(^|/)\.env$"`
