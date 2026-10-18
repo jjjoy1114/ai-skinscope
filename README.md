@@ -8,16 +8,18 @@ AI 피부 상태 스크리닝 & 코칭 서비스 — 스마트폰 카메라로 �
 
 ## 📌 제출물 한눈에 보기
 
-| # | 제출물 | 위치 |
+| # | 제출물 (공지 기준) | 바로가기 |
 | --- | --- | --- |
-| 1 | 서비스 기획서 | [docs/Service기획서.md](docs/Service기획서.md) |
-| 2 | 기능 요구 명세서 (아키텍처·AI 활용 명세·구현 현황 표) | [docs/기능요구명세서.md](docs/기능요구명세서.md) |
-| 3 | README (개요·팀원 역할·기술 스택·실행 방법·결과) | 이 문서 |
-| 4 | 배포 서비스와 평가자 접속 방법 | <https://ai-skinscope-team.vercel.app> · [접속 방법](#평가자-접속-방법) |
-| 5 | 사용자 피드백 기록 | [docs/test/user_feedback.md](docs/test/user_feedback.md) |
-| 6 | 발표 자료 (PDF) | [docs/AI-SkinScope_발표자료.pdf](docs/AI-SkinScope_발표자료.pdf) |
+| ① | 기획서 | [기획서 확인](./docs/Service기획서.md) |
+| ② | 기능 요구 명세서 (아키텍처·AI 활용 명세·구현 현황 표) | [기능 요구 명세서 확인](./docs/기능요구명세서.md) |
+| ③ | 배포 URL | <https://ai-skinscope-team.vercel.app> · [평가자 접속 방법](#평가자-접속-방법) |
+| ④ | GitHub 저장소 URL | 본 저장소 <https://github.com/jjjoy1114/ai-skinscope> (README: 개요·팀원 역할·기술 스택·실행 방법·결과) |
+| ⑤ | 사용자 피드백 기록 | [사용자 피드백 확인](./docs/test/user_feedback.md) · [테스트 통계 요약](./docs/test/user_test_summary.md) |
+| ⑥ | 발표 자료 (서면 심사용, PDF) | [발표 자료 확인](./docs/AI-SkinScope_발표자료.pdf) |
 
-진행 기록: [docs/Result.md](docs/Result.md) 6절(턴별 PR·리뷰) · [docs/screenshots/process/](docs/screenshots/process/)
+> ⑥ 발표 자료는 별도 PDF입니다. `docs/Result.md`는 발표 자료가 아닌 **결과 보고서**(진행 기록)로, 턴별 PR·리뷰 기록과 테스트 결과를 담고 있습니다.
+
+진행 기록: [결과 보고서](./docs/Result.md) 6절(턴별 PR·리뷰) · [진행 캡처](./docs/screenshots/process/)
 
 ### 평가자 접속 방법
 
@@ -26,10 +28,15 @@ AI 피부 상태 스크리닝 & 코칭 서비스 — 스마트폰 카메라로 �
 - 무료 서버라 **첫 접속 시 약 50초** 기동 시간이 있습니다. 이후 분석은 약 18초 걸립니다.
 - 기능별 확인 방법: [기능 요구 명세서 10장 구현 현황](docs/기능요구명세서.md)
 
+#### 🎬 시연 영상 (2분 17초)
+
+https://github.com/user-attachments/assets/7e508140-3a33-4da3-804d-c3231e8bf0b0
+
 ## 결과
 
 - AI 기술 요소: 멀티모달 AI, RAG(3종), Long-term Memory 적용 (AI Agent는 규칙 결합형, 경계 사례)
 - Must 기능 10개 구현 완료, 기능별 확인 방법·기대 결과 정리 ([구현 현황](docs/기능요구명세서.md) 10장)
+- Must 기능 10개 모두 3회 중 2회 이상 기대 결과 충족 → [Must 3회 검증 기록](docs/test/must_verification.md)
 - 실사용자 테스트: 참여자 40명(팀원 제외), 분석 154건, 만족도 4.3 / 5 → [피드백 기록](docs/test/user_feedback.md)
 - 배포 후 이슈 5건(#16~#20) 모두 해결
 - 결과 보고서: [docs/Result.md](docs/Result.md)
@@ -155,7 +162,7 @@ python scripts/serve_https.py
 | 오주연 | 팀장, 데이터·QA | 팀 저장소를 만들고 턴 방식(브랜치 → PR → 리뷰 → Merge)으로 진행을 이끌었습니다. 기능 요구 명세서와 AI Hub 데이터 분석 문서를 쓰고, 배포본을 점검해 이슈 5건(#16~#20)을 등록했습니다. 팀원 PR을 리뷰·Merge하고 결과 보고서와 README를 정리했으며, 1차 평가 후 사용자 피드백 기록과 제출물 보완을 맡았습니다. | [명세서](docs/기능요구명세서.md) · [데이터 분석](docs/AI_HUB_데이터분석.md) · [결과 보고서](docs/Result.md) · [피드백 기록](docs/test/user_feedback.md) · [PR #11](https://github.com/jjjoy1114/ai-skinscope/pull/11) · [PR #26](https://github.com/jjjoy1114/ai-skinscope/pull/26) · [PR #38](https://github.com/jjjoy1114/ai-skinscope/pull/38) |
 | 서경환 | Backend/AI | 서비스 기획서를 쓰고, Gemini Vision 분석·RAG 3종·Agent·이력 기반 피드백·챗봇으로 이어지는 백엔드와 AI 파이프라인을 구현했습니다. 프로토타입 단계에서 AI Hub 원본 데이터를 추출하고 Render에 백엔드를 배포했으며, 배포 후 백엔드 이슈 3건(#16~#18)을 수정하고 기술적용 매뉴얼을 정리했습니다. 1차 평가 후에는 실사용자 테스트 데이터의 팀원 기록 제외·가명 처리와 명세서 AI 활용 코드 위치·구현 현황 표를 맡았습니다. | [기획서](docs/Service기획서.md) · [기술적용 매뉴얼](docs/AI_Skin_Scope_기술적용_매뉴얼.md) · [PR #13](https://github.com/jjjoy1114/ai-skinscope/pull/13) · [PR #22](https://github.com/jjjoy1114/ai-skinscope/pull/22) · [PR #37](https://github.com/jjjoy1114/ai-skinscope/pull/37) |
 | 조민경 | Frontend | 프론트엔드 화면과 PWA 기능의 구현 및 검증 작업에 참여했습니다. 촬영 전 동의와 AI 생성 고지 등 사용자 화면을 점검하고, 백엔드 주소 변경에 대응했으며 배포 후 프론트엔드 이슈 2건(#19, #20)을 수정했습니다. 브라우저와 스마트폰 실기기에서 주요 화면을 검증하고 테스트 증빙을 정리했습니다. 1차 평가 후에는 기능요구명세서의 프론트엔드 구현 현황을 검토하고, 이력 조회(FR-11), 근거 설명(FR-17), 자동 촬영(FR-18)의 실제 검증 결과를 반영했습니다. |[PR #14](https://github.com/jjjoy1114/ai-skinscope/pull/14) · [PR #15](https://github.com/jjjoy1114/ai-skinscope/pull/15) · [PR #24](https://github.com/jjjoy1114/ai-skinscope/pull/24) · [PR #39](https://github.com/jjjoy1114/ai-skinscope/pull/39)|
-> 커밋 수(Merge 커밋 제외, 최종): 오주연 23 · 서경환 24 · 조민경 10 (`git shortlog -sn --no-merges team-start..main`)
+> 커밋 수(Merge 커밋 제외, 최종): 오주연 24 · 서경환 25 · 조민경 13 (`git shortlog -sn --no-merges team-start..main`)
 
 턴 방식(한 번에 한 명 작업 → PR → 리뷰 → Merge)으로 진행했습니다. 턴별 작업 내용과 PR 기록은 [`docs/Result.md`](docs/Result.md) 6절에 있습니다.
 
